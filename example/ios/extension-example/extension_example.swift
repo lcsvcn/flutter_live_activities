@@ -28,7 +28,7 @@ struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
 }
 
 // Create shared default with custom group
-let sharedDefault = UserDefaults(suiteName: "group.dimitridessus.liveactivities")!
+let sharedDefault = UserDefaults(suiteName: "group.lcsvcn.liveactivities")!
 
 @available(iOSApplicationExtension 16.1, *)
 struct FootballMatchApp: Widget {
@@ -51,8 +51,7 @@ struct FootballMatchApp: Widget {
       let matchRemainingTime = matchStartDate...matchEndDate
       
       ZStack {
-        LinearGradient(colors: [Color.black.opacity(0.5),Color.black.opacity(0.3)], startPoint: .topLeading, endPoint: .bottom)
-        
+     
         HStack {
           ZStack {
             VStack(alignment: .center, spacing: 2.0) {
@@ -74,7 +73,7 @@ struct FootballMatchApp: Widget {
             .frame(width: 70, height: 120)
             .padding(.bottom, 8)
             .padding(.top, 8)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(Color(.systemBackground))
             
             ZStack {
               if let uiImageTeamA = UIImage(contentsOfFile: teamALogo)
@@ -92,6 +91,7 @@ struct FootballMatchApp: Widget {
               Text("\(teamAScore)")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(Color(.label))
               
               Text(":")
                 .font(.title)
@@ -101,9 +101,10 @@ struct FootballMatchApp: Widget {
               Text("\(teamBScore)")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(Color(.label))
             }
             .padding(.horizontal, 5.0)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(Color(.systemBackground))
             
             HStack(alignment: .center, spacing: 2.0) {
               Text(timerInterval: matchRemainingTime, countsDown: true)
@@ -111,7 +112,7 @@ struct FootballMatchApp: Widget {
                 .frame(width: 50)
                 .monospacedDigit()
                 .font(.footnote)
-                .foregroundStyle(.white)
+                .foregroundColor(Color(.label))
             }
             
             VStack(alignment: .center, spacing: 1.0) {
@@ -120,7 +121,7 @@ struct FootballMatchApp: Widget {
               }.padding(.vertical, 5).padding(.horizontal, 5)
               Text(matchName)
                 .font(.footnote)
-                .foregroundStyle(.white)
+                .foregroundColor(Color(.label))
             }
           }
           .padding(.vertical, 6.0)
@@ -145,7 +146,7 @@ struct FootballMatchApp: Widget {
             .frame(width: 70, height: 120)
             .padding(.bottom, 8)
             .padding(.top, 8)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(Color(.systemBackground))
             
             ZStack {
               if let uiImageTeamB = UIImage(contentsOfFile: teamBLogo)
@@ -257,7 +258,7 @@ struct FootballMatchApp: Widget {
                 .fontWeight(.bold)
             }
             .padding(.horizontal, 5.0)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(Color(.systemBackground))
             
             HStack(alignment: .center, spacing: 2.0) {
               Text(timerInterval: matchRemainingTime, countsDown: true)
@@ -274,7 +275,7 @@ struct FootballMatchApp: Widget {
               }.padding(.vertical, 5).padding(.horizontal, 5)
               Text(matchName)
                 .font(.footnote)
-                .foregroundStyle(.white)
+                .foregroundColor(Color(.label))
             }
             
           }

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 
 abstract class LiveActivityImage {
@@ -43,8 +41,7 @@ class LiveActivityImageFromUrl extends LiveActivityImage {
 
   @override
   Future<Uint8List> loadImage() async {
-    final ByteData imageData =
-        await NetworkAssetBundle(Uri.parse(url)).load("");
+    final ByteData imageData = await NetworkAssetBundle(Uri.parse(url)).load("");
     return imageData.buffer.asUint8List();
   }
 }

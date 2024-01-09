@@ -2,17 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:live_activities/models/live_activity_state.dart';
 
 abstract class ActivityUpdate {
-  ActivityUpdate({required this.activityId});
+  ActivityUpdate({
+    required this.activityId,
+  });
 
   final String activityId;
 
   factory ActivityUpdate.fromMap(Map<String, dynamic> map) {
     final status = LiveActivityState.values.byName(map['status']);
     final activityId = map['activityId'] as String;
+
     switch (status) {
       case LiveActivityState.active:
         return ActiveActivityUpdate(
-            activityId: activityId, activityToken: map['token'] as String);
+          activityId: activityId,
+          activityToken: map['token'] as String,
+        );
       case LiveActivityState.ended:
       case LiveActivityState.dismissed:
         return EndedActivityUpdate(activityId: activityId);
@@ -45,8 +50,10 @@ abstract class ActivityUpdate {
 
 class ActiveActivityUpdate extends ActivityUpdate {
   @visibleForTesting
-  ActiveActivityUpdate(
-      {required super.activityId, required this.activityToken});
+  ActiveActivityUpdate({
+    required super.activityId,
+    required this.activityToken,
+  });
 
   final String activityToken;
 

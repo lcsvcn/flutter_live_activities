@@ -7,9 +7,7 @@ import 'package:live_activities/models/live_activity_state.dart';
 import 'package:live_activities/models/url_scheme_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockLiveActivitiesPlatform
-    with MockPlatformInterfaceMixin
-    implements LiveActivitiesPlatform {
+class MockLiveActivitiesPlatform with MockPlatformInterfaceMixin implements LiveActivitiesPlatform {
   @override
   Future init(String appGroupId, {String? urlScheme}) {
     return Future.value();
@@ -30,7 +28,7 @@ class MockLiveActivitiesPlatform
   }
 
   @override
-  Future updateActivity(String activityId, Map<String, dynamic> data) {
+  Future updateActivity(String activityId, Map<String, dynamic> data, [dynamic config]) {
     return Future.value();
   }
 
@@ -84,8 +82,7 @@ class MockLiveActivitiesPlatform
 }
 
 void main() {
-  final LiveActivitiesPlatform initialPlatform =
-      LiveActivitiesPlatform.instance;
+  final LiveActivitiesPlatform initialPlatform = LiveActivitiesPlatform.instance;
   LiveActivities liveActivitiesPlugin = LiveActivities();
   MockLiveActivitiesPlatform fakePlatform = MockLiveActivitiesPlatform();
   LiveActivitiesPlatform.instance = fakePlatform;
@@ -162,8 +159,7 @@ void main() {
 
     expect(wrongMappingIsNull, null);
 
-    final correctMappingNotNull =
-        result.mapOrNull(active: (state) => state.activityToken);
+    final correctMappingNotNull = result.mapOrNull(active: (state) => state.activityToken);
 
     expect(correctMappingNotNull, 'ACTIVITY_TOKEN');
   });

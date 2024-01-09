@@ -12,20 +12,18 @@ class AppGroupsImageService {
   final List<String> _assetsCopiedInAppGroups = [];
 
   Future sendImageToAppGroups(Map<String, dynamic> data) async {
-    if (appGroupId == null) {
-      throw Exception('appGroupId is null. Please call init() first.');
-    }
+    assert(appGroupId != null, 'appGroupId is null. Please call init() first.');
 
     for (String key in data.keys) {
       final value = data[key];
 
       if (value is LiveActivityImage) {
-        Directory? sharedDirectory =
-            await AppGroupDirectory.getAppGroupDirectory(
+        Directory? sharedDirectory = await AppGroupDirectory.getAppGroupDirectory(
           appGroupId!,
         );
-        Directory appGroupPicture =
-            Directory('${sharedDirectory!.path}/$kPictureFolderName');
+        Directory appGroupPicture = Directory(
+          '${sharedDirectory!.path}/$kPictureFolderName',
+        );
         Directory tempDir = await getTemporaryDirectory();
 
         // create directory if not exists
@@ -46,15 +44,13 @@ class AppGroupsImageService {
         file.writeAsBytesSync(bytes);
 
         if (value.resizeFactor != 1) {
-          ImageProperties properties =
-              await FlutterNativeImage.getImageProperties(file.path);
+          ImageProperties properties = await FlutterNativeImage.getImageProperties(file.path);
 
           final targetWidth = (properties.width! * value.resizeFactor).round();
           file = await FlutterNativeImage.compressImage(
             file.path,
             targetWidth: targetWidth,
-            targetHeight:
-                (properties.height! * targetWidth / properties.width!).round(),
+            targetHeight: (properties.height! * targetWidth / properties.width!).round(),
           );
         }
 
@@ -71,8 +67,7 @@ class AppGroupsImageService {
   }
 
   Future<void> removeAllImages() async {
-    final appGroupDirectory =
-        await AppGroupDirectory.getAppGroupDirectory(appGroupId!);
+    final appGroupDirectory = await AppGroupDirectory.getAppGroupDirectory(appGroupId!);
     final laPictureDir = Directory(
       '${appGroupDirectory!.path}/$kPictureFolderName',
     );

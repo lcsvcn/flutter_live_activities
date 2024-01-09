@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -51,15 +53,14 @@ class _HomeState extends State<Home> {
     super.initState();
 
     _liveActivitiesPlugin.init(
-      appGroupId: 'group.dimitridessus.liveactivities',
+      appGroupId: 'group.lcsvcn.liveactivities',
     );
 
     _liveActivitiesPlugin.activityUpdateStream.listen((event) {
       print('Activity update: $event');
     });
 
-    urlSchemeSubscription =
-        _liveActivitiesPlugin.urlSchemeStream().listen((schemeData) {
+    urlSchemeSubscription = _liveActivitiesPlugin.urlSchemeStream().listen((schemeData) {
       setState(() {
         if (schemeData.path == '/stats') {
           showDialog(
@@ -95,7 +96,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Live Activities (Flutter)'),
+        title: const Text('Flutter Live Activities'),
         backgroundColor: Colors.green,
       ),
       body: SizedBox.expand(
@@ -145,9 +146,8 @@ class _HomeState extends State<Home> {
               if (_latestActivityId == null)
                 TextButton(
                   onPressed: () async {
-                    _footballGameLiveActivityModel =
-                        FootballGameLiveActivityModel(
-                      matchName: 'World cup ⚽️',
+                    _footballGameLiveActivityModel = FootballGameLiveActivityModel(
+                      matchName: 'Champions league - Final',
                       teamAName: 'PSG',
                       teamAState: 'Home',
                       teamALogo: LiveActivityImageFromAsset(
@@ -167,8 +167,7 @@ class _HomeState extends State<Home> {
                       ),
                     );
 
-                    final activityId =
-                        await _liveActivitiesPlugin.createActivity(
+                    final activityId = await _liveActivitiesPlugin.createActivity(
                       _footballGameLiveActivityModel!.toMap(),
                     );
                     setState(() => _latestActivityId = activityId);
@@ -189,8 +188,7 @@ class _HomeState extends State<Home> {
               if (_latestActivityId == null)
                 TextButton(
                   onPressed: () async {
-                    final supported =
-                        await _liveActivitiesPlugin.areActivitiesEnabled();
+                    final supported = await _liveActivitiesPlugin.areActivitiesEnabled();
                     if (context.mounted) {
                       showDialog(
                         context: context,
